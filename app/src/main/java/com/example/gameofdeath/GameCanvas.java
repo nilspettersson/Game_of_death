@@ -67,10 +67,6 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback, V
             else {
 
 
-                ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 50);
-                toneGen1.startTone(ToneGenerator.TONE_SUP_RADIO_ACK,140);
-
-
             }
 
         }
@@ -137,6 +133,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback, V
 
             if(player.getPoints()>=500){
                 g.drawText("you win!!!!!!! ",300,getHeight()-580,color);
+                //MainActivity.player.sendOutput("leave");
             }
 
 

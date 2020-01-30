@@ -69,7 +69,10 @@ public class game extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         MainActivity.player.sendOutput("leave");
-
+        gameStarted=false;
+        MainActivity.inGame=false;
+        MainActivity.player.run=false;
+        //MainActivity.player=new Player();
         finish();
 
     }

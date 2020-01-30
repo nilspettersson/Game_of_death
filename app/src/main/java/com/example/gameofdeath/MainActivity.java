@@ -1,8 +1,11 @@
 package com.example.gameofdeath;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.io.IOException;
@@ -45,15 +49,33 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout box = (LinearLayout) findViewById(R.id.box);
 
         String games=player.getInput();
-        Log.wtf("a",games+" ******");
+        String gameNames=player.getInput();
 
+        Log.wtf("a",gameNames);
+
+        Log.wtf("a",games+" ******");
+        int count=0;
         int start=0;
         for(int i=0;i<games.length();i++){
             if(games.charAt(i)=='*'){
 
+                String currentName="";
+                int start2=0;
+                int currentCount=0;
+                for(int ii=0;ii<gameNames.length();ii++){
+                    if(gameNames.charAt(ii)=='*'){
+                        if(currentCount==count) {
+                            currentName=gameNames.substring(start2, ii);
+                        }
+                        start2 = ii + 1;
+                        currentCount++;
+                    }
+                }
+                count++;
+
                 Button btn = new Button(MainActivity.this);
                 btn.setTag(games.substring(start,i));
-                btn.setText("Game "+games.substring(start,i));
+                btn.setText(currentName);
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -85,9 +107,11 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inGame=true;
-                player.createGameId();
-                gotToGame(v);
+
+
+                showCreateMatch(MainActivity.this,v);
+
+
             }
         });
 
@@ -136,6 +160,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    private void showCreateMatch(Context c, View v) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Create new game")
+                .setMessage("name your match.")
+                .setView(taskEditText)
+                .setPositiveButton("create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        inGame=true;
+                        String name = String.valueOf(taskEditText.getText());
+                        player.createGameId();
+                        player.sendOutput(name);
+                        gotToGame(MainActivity.this.getCurrentFocus());
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
     }
 
 
