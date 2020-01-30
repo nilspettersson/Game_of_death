@@ -1,6 +1,8 @@
 package com.example.gameofdeath;
 
+import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -8,29 +10,28 @@ public class Player {
     Client client;
     int id;
 
+    boolean run;
+
     public Player(){
-        client=new Client("192.168.216.121",9090);
+        client=new Client("192.168.216.149",9090);
         Log.wtf("a","player create!");
         new Thread(){
             public void run(){
 
+        run=true;
 
+                /*while(run){
 
-                while(true){
-
-                    checkConnection();
+                    //checkConnection();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(1000000);
                     }catch (InterruptedException e){
 
                     }
-                }
+                }*/
 
             }
         }.start();
-
-
-
 
 
 
@@ -41,7 +42,7 @@ public class Player {
 
                 Player.this.getId();
 
-                while(true){
+                /*while(true){
 
 
                     //Log.wtf("a",getGameId());
@@ -50,12 +51,10 @@ public class Player {
                     }catch (InterruptedException e){
 
                     }
-                }
+                }*/
 
             }
         }.start();
-
-
 
 
 
@@ -87,6 +86,7 @@ public class Player {
     public String getInput(){
         try {
             String input=client.getInput().readUTF();
+            //Log.wtf("a","found "+input);
             return input;
         }catch (IOException e){
             Log.wtf("a","error");
@@ -116,6 +116,7 @@ public class Player {
     public void checkConnection(){
         try {
             client.getOutput().writeUTF("client id:"+id+" connected");
+            Log.wtf("a","client id:"+id+" connected");
         }catch (IOException e){
 
         }
