@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean inGame=false;
     public static Player player;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
