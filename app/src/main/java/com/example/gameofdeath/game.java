@@ -2,11 +2,13 @@ package com.example.gameofdeath;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -73,10 +75,17 @@ public class game extends AppCompatActivity {
         MainActivity.inGame=false;
         MainActivity.player.run=false;
         //MainActivity.player=new Player();
+
+
         finish();
 
     }
 
+    public void refresh(View view){
+        Intent intent=new Intent(this,MainActivity.class);
+        //startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+    }
 
 
 

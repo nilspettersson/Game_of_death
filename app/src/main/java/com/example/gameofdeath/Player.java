@@ -13,7 +13,7 @@ public class Player {
     boolean run;
 
     public Player(){
-        client=new Client("192.168.216.149",9090);
+        client=new Client("192.168.216.79",9090);
         Log.wtf("a","player create!");
         new Thread(){
             public void run(){
